@@ -1,0 +1,30 @@
+{
+  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "include": [
+    "src/renderer/env.d.ts",
+    "src/renderer/**/*",
+    "src/renderer/**/*.vue",
+    "src/preload/*.d.ts"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@stores/*": [
+        "src/shared/stores/*"
+      ],
+      "@utils/*": [
+        "src/shared/utils/*"
+      ],
+      "@constants/*": [
+        "src/shared/constants/*"
+      ],
+      "#/*": [
+        "src/renderer/src/*"
+      ]
+    }
+  }
+}
