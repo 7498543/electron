@@ -7,5 +7,10 @@
   "useTabs": false,
   "endOfLine": "auto",
   "vueIndentScriptAndStyle": true,
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "jsxSingleQuote": true,
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "htmlWhitespaceSensitivity": "css",
+  "embeddedLanguageFormatting": "auto"
 }
