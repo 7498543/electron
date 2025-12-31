@@ -1,4 +1,4 @@
-import { breakpointsTailwind, useBreakpoints, useDebounceFn } from '@vueuse/core'
+import { useDebounceFn } from '@vueuse/core'
 import { StorageManager } from '@utils/cache/storage-manger'
 
 import { defaultPreferences } from './config'
@@ -43,7 +43,7 @@ class PreferenceManager {
    * overrides  要覆盖的偏好设置
    * namespace  命名空间
    */
-  public async initPreferences({ namespace, overrides }: InitialOptions) {
+  public initPreferences({ namespace, overrides }: InitialOptions): void {
     // 是否初始化过
     if (this.isInitialized) {
       return
@@ -63,10 +63,6 @@ class PreferenceManager {
 
     // 更新偏好设置
     this.updatePreferences(mergedPreference)
-
-    this.setupWatcher()
-
-    this.initPlatform()
     // 标记为已初始化
     this.isInitialized = true
   }
@@ -81,7 +77,7 @@ class PreferenceManager {
    * 调用后，state 将被重置为 { theme: 'light', language: 'en' }
    * 并且 localStorage 中的对应项将被移除
    */
-  resetPreferences() {
+  public resetPreferences(): void {
     // 将状态重置为初始偏好设置
     Object.assign(this.state, this.initialPreferences)
     // 保存重置后的偏好设置
@@ -97,24 +93,13 @@ class PreferenceManager {
    * 更新偏好设置
    * @param updates - 要更新的偏好设置
    */
-  public updatePreferences(updates: DeepPartial<Preferences>) {
+  public updatePreferences(updates: DeepPartial<Preferences>): void {
     const mergedState = merge({}, updates, markRaw(this.state))
 
     Object.assign(this.state, mergedState)
 
     // 根据更新的键值执行相应的操作
-    this.handleUpdates(updates)
     this.savePreferences(this.state)
-  }
-
-  /**
-   * 处理更新的键值
-   * 根据更新的键值执行相应的操作。
-   * @param {DeepPartial<Preferences>} updates - 部分更新的偏好设置
-   */
-  private handleUpdates(updates: DeepPartial<Preferences>) {
-    const themeUpdates = updates.theme || {}
-    const appUpdates = updates.app || {}
   }
 
   /**
@@ -138,12 +123,12 @@ class PreferenceManager {
    *  从缓存中加载偏好设置。如果缓存中没有找到对应的偏好设置，则返回默认偏好设置。
    */
   private loadCachedPreferences(): Preferences | null {
-    return this.cache?.getItem<Preferences>(STORAGE_KEY)
+    return this.cache?.getItem<Preferences>(STORAGE_KEY) || null
   }
 
   private _savePreferences(preference: Preferences): void {
     this.cache?.setItem(STORAGE_KEY, preference)
-    this.cache?.setItem(STORAGE_KEY_LOCALE, preference.locale)
+    this.cache?.setItem(STORAGE_KEY_LOCALE, preference.app.locale)
     this.cache?.setItem(STORAGE_KEY_THEME, preference.theme)
   }
 }

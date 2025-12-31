@@ -3,6 +3,13 @@ import path from 'path'
 import Store from 'electron-store'
 import { v4 as uuidv4 } from 'uuid'
 
+// 扩展 BrowserWindow 类型，添加 name 属性
+declare module 'electron' {
+  interface BrowserWindow {
+    name?: string
+  }
+}
+
 const isDev = process.env.NODE_ENV === 'development'
 
 const store = new Store({
@@ -98,6 +105,7 @@ class WindowManager {
     }
 
     const window = new BrowserWindow(finalConfig)
+    window.name = finalConfig.name
     this.windows.set(id, window)
 
     // 监听窗口事件，保存窗口状态

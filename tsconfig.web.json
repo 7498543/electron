@@ -25,6 +25,8 @@
       "#/*": [
         "src/renderer/src/*"
       ]
-    }
+    },
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true
   }
 }

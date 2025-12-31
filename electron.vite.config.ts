@@ -19,7 +19,8 @@ export default defineConfig({
       rollupOptions: {
         input: {
           index: resolve(__dirname, 'src/main/index.ts')
-        }
+        },
+        external: ['electron-store']
       }
     }
   },
@@ -31,7 +32,7 @@ export default defineConfig({
       outDir: 'out/preload',
       rollupOptions: {
         input: {
-          mainWindow: resolve(__dirname, 'src/preload/src/index.ts')
+          mainWindow: resolve(__dirname, 'src/preload/mainWindow/index.ts')
         }
       }
     }
@@ -44,7 +45,7 @@ export default defineConfig({
       outDir: 'out/renderer',
       rollupOptions: {
         input: {
-          mainWindow: resolve(__dirname, 'src/renderer/src/index.vue')
+          mainWindow: resolve(__dirname, 'src/renderer/index.html')
         }
       }
     },

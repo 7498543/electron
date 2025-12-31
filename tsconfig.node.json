@@ -18,6 +18,8 @@
       "@constants/*": [
         "src/shared/constants/*"
       ]
-    }
+    },
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true
   }
 }

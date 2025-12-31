@@ -1,12 +1,11 @@
-import { computed } from 'vue'
 import { preferencesManager } from './preferences'
 
-function usePreferences(): Record<string, any> {
+function usePreferences() {
   const preferences = preferencesManager.getPreferences()
 
-  const appPreferences = computed(() => preferences.app)
-
-  return {}
+  return {
+    preferences
+  }
 }
 
 export { usePreferences }
